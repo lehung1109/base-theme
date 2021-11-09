@@ -1,0 +1,33 @@
+.hidden-on-mobile {
+  @media only screen and (max-width: $tabletOnly) {
+    display: none;
+  }
+}
+
+.hidden-to-tablet {
+  @media only screen and (max-width: $desktopOnly) {
+    display: none;
+  }
+}
+
+.hidden-from-mobile {
+  display: none;
+}
+
+.hidden-from-tablet {
+  @media only screen and (min-width: $tablet) {
+    display: none;
+  }
+}
+
+.hidden-on-desktop {
+  @media only screen and (min-width: $desktop) {
+    display: none;
+  }
+}
+
+.hidden-on-tablet {
+  @media only screen and (min-width: $tablet) and (max-width: $desktopOnly) {
+    display: none;
+  }
+}

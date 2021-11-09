@@ -1,0 +1,147 @@
+// TYPOGRAPHY
+// Define all typographic styles in this file.
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6  {
+  font-weight: 700;
+  margin-bottom: rem(15px);
+}
+
+h1,
+.h1{
+  font-size: rem(36px);
+  margin-bottom: rem(30px);
+}
+
+h2,
+.h2{
+  font-size: rem(30px);
+  margin-bottom: rem(20px);
+}
+
+h3,
+.h3{
+  font-size: rem(24px);
+}
+
+h4,
+.h4 {
+  font-size: rem(16px);
+}
+
+h5,
+.h5 {
+  font-size: rem(14px);
+}
+
+h6,
+.h6 {
+  font-size: rem(12px);
+}
+
+%link,
+.link {
+  color: $link-color;
+  text-decoration: none;
+  transition: all .3s ease;
+  cursor: pointer;
+
+  &:active,
+  &:hover {
+    color: $link-color-hover;
+  }
+
+  &--white {
+    color: $white;
+
+    &:active,
+    &:hover {
+      color: darken($white, 15%);
+    }
+  }
+}
+
+a {
+  @extend %link;
+}
+
+p {
+  margin-bottom: rem(15px);
+}
+
+em {
+  font-style: italic;
+}
+
+b,
+strong {
+  font-weight: 700;
+}
+
+sub {
+  vertical-align: sub;
+  font-size: smaller;
+}
+
+sup {
+  vertical-align: super;
+}
+
+small {
+  font-size: smaller;
+}
+
+abbr {
+  border-bottom: 1px dotted $text-color;
+  cursor: help;
+}
+
+tt,
+code,
+kbd,
+samp {
+  font-family: monospace;
+}
+
+ol,
+ul {
+  padding-left: rem(18px);
+  margin-bottom: rem(15px);
+}
+
+label {
+  font-weight: 700;
+}
+
+blockquote {
+  p {
+    display: inline;
+  }
+
+  &:before {
+    content: '\201c';
+  }
+
+  &:after {
+    content: '\201d';
+  }
+}
+
+iframe,
+img {
+  max-width: 100%;
+}
+
+figure {
+  line-height: 0;
+}

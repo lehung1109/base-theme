@@ -1,0 +1,32 @@
+// COLORS
+// Define all color variables in this document
+// Use http://chir.ag/projects/name-that-color/ for naming a color.
+
+$black: #000;
+$white: #fff;
+$silver: #ccc;
+
+// Gray
+$gray: #ddd;
+
+// Red
+$red: #e80200;
+$dark-red: #b70200;
+
+// Blue
+$blue: #112146;
+
+$green: #f9e8ad;
+$green-second: #96602e;
+
+// Brand colors
+$primary-color: $red;
+$text-color: $black;
+
+// Link color
+$link-color: $black;
+$link-color-hover: lighten($black, 25%);
+
+// Button color
+$btn-color: $primary-color;
+$btn-color-hover: lighten($primary-color, 10%);

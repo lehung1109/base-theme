@@ -1,0 +1,30 @@
+@import "colors";
+
+.btn {
+  appearance: none;
+  background-image: none;
+  border-radius: 0;
+  border: 1px solid $btn-color;
+  box-shadow: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1;
+  min-width: 100px;
+  outline: none;
+  padding: 15px 30px;
+  text-align: center;
+  text-shadow: none;
+  transition: all .3s ease;
+  background-color: $btn-color;
+  color: $white;
+  cursor: pointer;
+  outline: 0;
+
+  &:active,
+  &:hover {
+    background-color: $btn-color-hover;
+    border-color: $btn-color-hover;
+    color: $white;
+  }
+}
