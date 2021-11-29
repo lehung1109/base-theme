@@ -106,7 +106,7 @@ function custom_theme_buffer_process($buffer) {
 
     if (empty($matches)) return $buffer;
 
-    $matches = array_unique( $matches[1] );
+    $matches = $matches[1];
     $matches = implode( ' ', $matches );
 
     custom_theme_divide_scripts($matches, $script_body, $script_head);
@@ -136,32 +136,10 @@ function custom_theme_add_scripts_when_ls_inactive() {
   
     if (is_plugin_active('litespeed-cache/litespeed-cache.php')) return;
 
-    $classes = <<<HEREDOC
-            lazy-image
-            is-max-height
-            btn number
-            select
-            textarea
-            checkbox
-            submit
-            form-item
-            search-form
-            contact-form
-            icon
-            table
-            woocommerce-pagination
-            banner
-            archive
-            post-template-default
-            product-template-default
-            has-slide
-            wpcf7-form
-        HEREDOC;
-
     $script_body = [];
     $script_head = [];
 
-    custom_theme_divide_scripts($classes, $script_body, $script_head);
+    custom_theme_divide_scripts([], $script_body, $script_head, true);
 
     echo implode("", $script_head);
     echo implode("", $script_body);
@@ -170,24 +148,54 @@ function custom_theme_add_scripts_when_ls_inactive() {
 /**
  * divide scripts for style and script
  */
-function custom_theme_divide_scripts($matches, &$script_body, &$script_head) {
+function custom_theme_divide_scripts($matches, &$script_body, &$script_head, $include_all = false) {
+    $classes = [
+        'lazy-image',
+        'is-max-height',
+        'btn number',
+        'select',
+        'textarea',
+        'checkbox',
+        'submit',
+        'form-item',
+        'search-form',
+        'contact-form',
+        'icon',
+        'table',
+        'woocommerce-pagination',
+        'layout',
+        'sidebar',
+        'banner',
+        'box-provider',
+        'box-slider',
+        'box-text',
+        'archive',
+        'post-template-default',
+        'product-template-default',
+        'has-slide',
+        'wpcf7-form',
+    ];
+
+    if ( $include_all ) $matches = implode(' ', $classes);
+
+    $matches = explode(' ', $matches);
+    $matches = array_intersect($classes, $matches);
+    $matches = array_flip($matches);
+
     // add core style
     $script_head[] = '<link rel="stylesheet" href="' . get_template_directory_uri() . '/assets/css/style.css" type="text/css" media="all">';
 
     // declare function
-    if ( ( $last_string = str_replace('lazy-image', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['lazy-image'] ) ) {
         $script_body[] = '<script defer type="text/javascript" src="' . get_template_directory_uri() . '/assets/js/functions/lazy-image.js"></script>';
     }
 
-    if ( ( $last_string = str_replace('is-max-height', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['is-max-height'] ) ) {
         $script_body[] = '<script defer type="text/javascript" src="' . get_template_directory_uri() . '/assets/js/functions/max-height.js"></script>';
     }
 
     // add vendor style and script
-    if (( $last_string = str_replace('has-slide', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['has-slide'] ) ) {
         $script_head[] = '<link rel="stylesheet" href="' . get_template_directory_uri() . '/assets/css/components/custom-slide.css">';
         $script_body[] = '<script defer type="text/javascript" src="' . get_template_directory_uri() . '/assets/js/functions/swiper-bundle.min.js"></script>';
     }
@@ -196,49 +204,40 @@ function custom_theme_divide_scripts($matches, &$script_body, &$script_head) {
     $script_body[] = '<script defer type="text/javascript" src="' . get_template_directory_uri() . '/assets/js/scripts.js"></script>';
 
     // add style and js for components and page
-    if ( ( $last_string = str_replace('btn', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['btn'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/base/btn.css">';
     }
 
-    if (( $last_string = str_replace('number', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['form-type-number'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/base/form/number.css">';
     }
 
-    if (( $last_string = str_replace('select', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['form-type-select'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/base/form/select.css">';
     }
 
-    if (( $last_string = str_replace('textarea', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['form-type-textarea'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/base/form/textarea.css">';
     }
 
-    if (( $last_string = str_replace(array('checkbox', 'radio'), array('', ''), $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['form-type-checkbox'] ) || isset( $matches['form-type-radio'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/base/form/checkbox-radio.css">';
     }
 
-    if (( $last_string = str_replace('submit', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['form-type-submit'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/base/form/submit.css">';
     }
 
-    if (( $last_string = str_replace('form-item', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['form-item'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/base/form/text.css">';
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/base/form/form-layout.css">';
     }
 
-    if (( $last_string = str_replace('search-form', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['search-form'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/base/form/search-form.css">';
     }
 
-    if (( $last_string = str_replace('wpcf7-form', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['wpcf7-form'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/base/form/contact-form.css">';
 
         if (function_exists('wpcf7_plugin_url')) {
@@ -256,43 +255,36 @@ function custom_theme_divide_scripts($matches, &$script_body, &$script_head) {
         }
     }
 
-    if (( $last_string = str_replace('icon', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['icon'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/base/icons.css">';
     }
 
-    if (( $last_string = str_replace('table', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['table'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/base/table.css">';
     }
 
     // woocommerce pagination
-    if (( $last_string = str_replace('woocommerce-pagination', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['woocommerce-pagination'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/layouts/pagination.css">';
     }
 
     // components
-    if (( $last_string = str_replace('banner', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['banner'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/components/banner.css">';
         $script_body[] = '<script defer type="text/javascript" src="' . get_template_directory_uri() . '/assets/js/components/banner.js"></script>';
     }
 
     // page style
-    if (( $last_string = str_replace('404', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['404'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/page/404.css">';
     }
 
-    if (( $last_string = str_replace('archive', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['archive'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/page/category.css">';
         $script_body[] = '<script defer type="text/javascript" src="' . get_template_directory_uri() . '/assets/js/page/category.js"></script>';
     }
 
-    if (( $last_string = str_replace('product-template-default', '', $matches) ) !== $matches) {
-        $matches = $last_string;
+    if ( isset( $matches['product-template-default'] ) ) {
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/page/product.css">';
     }
 
