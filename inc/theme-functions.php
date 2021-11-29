@@ -130,9 +130,13 @@ function custom_theme_buffer_process($buffer) {
  * add javascript for ls inactive
  */
 function custom_theme_add_scripts_when_ls_inactive() {
+    if (!function_exists('is_plugin_active')) {
+        include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+    }
+  
     if (is_plugin_active('litespeed-cache/litespeed-cache.php')) return;
 
-    $classes = `
+    $classes = <<<HEREDOC
             lazy-image
             is-max-height
             btn number
@@ -152,7 +156,7 @@ function custom_theme_add_scripts_when_ls_inactive() {
             product-template-default
             has-slide
             wpcf7-form
-        `;
+        HEREDOC;
 
     $script_body = [];
     $script_head = [];
@@ -168,7 +172,7 @@ function custom_theme_add_scripts_when_ls_inactive() {
  */
 function custom_theme_divide_scripts($matches, &$script_body, &$script_head) {
     // add core style
-    $script_head[] = '<link rel="stylesheet" href="' . get_template_directory_uri() . '/assets/css/styles.css" type="text/css" media="all">';
+    $script_head[] = '<link rel="stylesheet" href="' . get_template_directory_uri() . '/assets/css/style.css" type="text/css" media="all">';
 
     // declare function
     if ( ( $last_string = str_replace('lazy-image', '', $matches) ) !== $matches) {
@@ -189,7 +193,7 @@ function custom_theme_divide_scripts($matches, &$script_body, &$script_head) {
     }
 
     // add core js
-    $script_body[] = '<script defer type="text/javascript" src="' . get_template_directory_uri() . '/assets/js/script.js"></script>';
+    $script_body[] = '<script defer type="text/javascript" src="' . get_template_directory_uri() . '/assets/js/scripts.js"></script>';
 
     // add style and js for components and page
     if ( ( $last_string = str_replace('btn', '', $matches) ) !== $matches) {
@@ -237,17 +241,19 @@ function custom_theme_divide_scripts($matches, &$script_body, &$script_head) {
         $matches = $last_string;
         $script_head[] = '<link rel="stylesheet" type="text/css" media="all" href="' . get_template_directory_uri() . '/assets/css/base/form/contact-form.css">';
 
-        $wpcf7 = array(
-            'api' => array(
-                'root' => esc_url_raw( get_rest_url() ),
-                'namespace' => 'contact-form-7/v1',
-            ),
-            'cached' => 1
-        );
-        $script_body[] = '<script type="text/javascript">
-                let wpcf7 = ' . json_encode($wpcf7) . ';
-            </script>';
-        $script_body[] = '<script defer type="text/javascript" src="' . wpcf7_plugin_url( 'includes/js/index.js' ) . '"></script>';
+        if (function_exists('wpcf7_plugin_url')) {
+          $wpcf7 = array(
+              'api' => array(
+                  'root' => esc_url_raw( get_rest_url() ),
+                  'namespace' => 'contact-form-7/v1',
+              ),
+              'cached' => 1
+          );
+          $script_body[] = '<script type="text/javascript">
+              let wpcf7 = ' . json_encode($wpcf7) . ';
+          </script>';
+          $script_body[] = '<script defer type="text/javascript" src="' . wpcf7_plugin_url( 'includes/js/index.js' ) . '"></script>';
+        }
     }
 
     if (( $last_string = str_replace('icon', '', $matches) ) !== $matches) {
