@@ -1,26 +1,20 @@
 // STYLES-MAIN.SCSS
 // Variables
-@import 'base/variables';
-@import 'base/colors';
+@import "base/variables";
+@import "base/colors";
 
 //Helpers functions
-@import 'helpers/mixins';
-
-// Reset
-@import 'base/reset';
+@import "helpers/mixins";
 
 //Base
-@import 'base/fonts';
-@import 'base/grid';
-@import 'base/btn';
-@import 'base/table';
-@import 'base/icons';
-@import 'base/typography';
-@import 'base/form';
-@import 'base/helpers';
+@import "base/extend";
+@import "base/fonts";
+@import "base/grid";
+@import "base/typography";
+@import "base/helpers";
 
 // layouts
-@import 'layouts/layout';
-@import 'layouts/header';
-@import 'layouts/footer';
-@import 'layouts/navigation';
+@import "layouts/layout";
+@import "layouts/header";
+@import "layouts/footer";
+@import "layouts/navigation";

@@ -27,7 +27,7 @@
 
     <?php wp_head(); ?>
 
-      <?php  // if($_SERVER['HTTP_HOST'] === 'vn' || $_SERVER['HTTP_HOST'] === 'www.vn'): ?>
+      <?php  // if($_SERVER['HTTP_HOST'] === 'demo.com' || $_SERVER['HTTP_HOST'] === 'www.demo.com'): ?>
           <!-- Google Tag Manager -->
           <!-- End Google Tag Manager -->
       <?php // endif; ?>
@@ -35,9 +35,9 @@
   </head>
   <body <?php body_class(''); ?>>
 
-  <?php // if($_SERVER['HTTP_HOST'] === 'envytech.vn' || $_SERVER['HTTP_HOST'] === 'www.envytech.vn'): ?>
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <!-- End Google Tag Manager (noscript) -->
+  <?php // if($_SERVER['HTTP_HOST'] === 'demo.com' || $_SERVER['HTTP_HOST'] === 'www.demo.com'): ?>
+        <!-- Google Tag Manager -->
+        <!-- End Google Tag Manager -->
   <?php // endif; ?>
 
     <!-- wrapper -->

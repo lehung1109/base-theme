@@ -8,32 +8,26 @@
  * E.g., it puts together the home page when no home.php file exists.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
- *
- * @package WordPress
- * @subpackage Twenty_Nineteen
- * @since Twenty Nineteen 1.0
  */
 
 get_header();
 ?>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main">
+    <main role="main" class="main">
+        <div class="container">
+            <?php
+            if ( have_posts() ) {
 
-		<?php
-		if ( have_posts() ) {
+                // Load posts loop.
+                while ( have_posts() ) {
+                    the_post();
+                    the_content();
+                }
 
-			// Load posts loop.
-			while ( have_posts() ) {
-				the_post();
-				the_content();
-			}
-
-		}
-		?>
-
-		</main><!-- .site-main -->
-	</div><!-- .content-area -->
+            }
+            ?>
+        </div>
+    </main><!-- .site-main -->
 
 <?php
 get_footer();

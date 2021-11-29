@@ -3,30 +3,23 @@
  * The template for displaying 404 pages (not found)
  *
  * @link https://codex.wordpress.org/Creating_an_Error_404_Page
- *
- * @package WordPress
- * @subpackage Twenty_Nineteen
- * @since Twenty Nineteen 1.0
  */
 
 get_header();
 ?>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main">
-
-			<div class="error-404 not-found">
-				<header class="page-header">
-					<h1 class="page-title"><?php _e( 'Oops! That page can&rsquo;t be found.', 'twentynineteen' ); ?></h1>
-				</header><!-- .page-header -->
-
-				<div class="page-content">
-					<p><?php _e( 'It looks like nothing was found at this location. Maybe try a search?', 'twentynineteen' ); ?></p>
-				</div><!-- .page-content -->
-			</div><!-- .error-404 -->
-
-		</main><!-- #main -->
-	</div><!-- #primary -->
+    <main role="main" class="main">
+        <div class="container">
+            <div class="page-404">
+                <h1 class="page-404__title">404</h1>
+                <h2 class="page-404__subtitle">Sorry...</h2>
+                <br>
+                <p>Page not found or didnt exist!</p>
+                <br>
+                <p><a href="/">back to home</a></p>
+            </div>
+        </div>
+    </main>
 
 <?php
 get_footer();

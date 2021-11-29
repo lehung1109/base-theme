@@ -1,4 +1,4 @@
-@import 'variables';
+@import "variables";
 @import "colors";
 
 // Style table
@@ -14,13 +14,13 @@ table {
 
 td,
 th {
-  border-bottom: (1px) solid $silver;
+  border-bottom: (1px) solid $black;
   min-width: (120px);
   padding: (10px 18px);
   vertical-align: top;
 
   tbody tr:first-of-type & {
-    border-top: (1px) solid $silver;
+    border-top: (1px) solid $black;
   }
 }
 

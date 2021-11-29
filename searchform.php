@@ -14,11 +14,11 @@
  * Generate a unique ID for each form and a string containing an aria-label
  * if one was passed to get_search_form() in the args array.
  */
-$twentytwentyone_unique_id = wp_unique_id( 'search-form-' );
+$unique_id = wp_unique_id( 'search-form-' );
 
-$twentytwentyone_aria_label = ! empty( $args['aria_label'] ) ? 'aria-label="' . esc_attr( $args['aria_label'] ) . '"' : '';
+$label = ! empty( $args['aria_label'] ) ? 'aria-label="' . esc_attr( $args['aria_label'] ) . '"' : '';
 ?>
-<form role="search" <?php echo $twentytwentyone_aria_label; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?> method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-    <label style="font-size: 0"><input type="search" id="<?php echo esc_attr( $twentytwentyone_unique_id ); ?>" class="search-field" value="<?php echo get_search_query(); ?>" name="s" />search</label>
+<form role="search" <?php echo $label; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?> method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+    <label style="font-size: 0"><input type="search" id="<?php echo esc_attr( $unique_id ); ?>" class="search-field" value="<?php echo get_search_query(); ?>" name="s" />search</label>
     <button type="submit" aria-label="search" class="search-submit icon-search" value=""></button>
 </form>

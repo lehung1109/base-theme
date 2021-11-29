@@ -1,0 +1,24 @@
+@import "../colors";
+
+.form-item,
+.form-actions {
+  margin: (0 0 10px);
+  border: 5px solid hsla(0deg 0% 100% / 20%);
+  border-radius: 12px;
+
+  &.form-type-checkbox,
+  &.form-type-radio {
+    margin-bottom: (8px);
+  }
+}
+
+.form-actions {
+  display: inline-block;
+}
+
+.form-type-checkbox,
+.form-type-radio {
+  label {
+    font-weight: 400;
+  }
+}

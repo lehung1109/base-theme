@@ -25,14 +25,14 @@
 
 
   // Register Navigation
-  function ssvwp_register_menu() {
+  function custom_theme_register_menu() {
     register_nav_menus(array( // Using array to specify more menus if needed
-      'header-menu' => __('Header Menu', 'ssvwp'), // Main Navigation
-      'sidebar-menu' => __('Sidebar Menu', 'ssvwp'), // Sidebar Navigation
-      'extra-menu' => __('Extra Menu', 'ssvwp') // Extra Navigation if needed (duplicate as many as you need!)
+      'header-menu' => __('Header Menu', 'custom_theme'), // Main Navigation
+      'sidebar-menu' => __('Sidebar Menu', 'custom_theme'), // Sidebar Navigation
+      'extra-menu' => __('Extra Menu', 'custom_theme') // Extra Navigation if needed (duplicate as many as you need!)
     ));
   }
 
   // Actions
-  add_action('init', 'ssvwp_register_menu');
+  add_action('init', 'custom_theme_register_menu');
 

@@ -1,0 +1,7 @@
+@import "../colors";
+@import "../extend";
+
+button:not(.search-submit),
+input[type="submit"]:not(.search-submit) {
+  @extend %btn;
+}

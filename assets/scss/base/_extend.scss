@@ -1,0 +1,78 @@
+@import "colors";
+
+%btn {
+  appearance: none;
+  background-image: none;
+  border-radius: 0;
+  border: 1px solid $btn-color;
+  box-shadow: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1;
+  min-width: 100px;
+  outline: none;
+  padding: 15px 30px;
+  text-align: center;
+  text-shadow: none;
+  transition: all 0.3s ease;
+  background-color: $btn-color;
+  color: $white;
+  cursor: pointer;
+  outline: 0;
+
+  &:active,
+  &:hover {
+    background-color: $btn-color-hover;
+    border-color: $btn-color-hover;
+    color: $white;
+  }
+}
+
+%form-text {
+  appearance: none;
+  border: 1px solid $black;
+  box-shadow: inherit;
+  box-sizing: border-box;
+  color: $text-color;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 13px 15px;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  letter-spacing: 0;
+  cursor: pointer;
+  border-radius: 8px;
+
+  &::-ms-clear {
+    display: none;
+  }
+
+  &::placeholder {
+    color: lighten($text-color, 10%);
+    opacity: 1;
+  }
+
+  &:focus {
+    outline: 0 none;
+  }
+
+  &.error,
+  &.wpcf7-not-valid {
+    border-color: $red;
+    color: $red;
+
+    &::placeholder {
+      color: $red;
+    }
+
+    &:focus {
+      box-shadow: 0 0 5px rgba($red, 100%);
+      outline: 0 none;
+    }
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+}

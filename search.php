@@ -1,65 +1,23 @@
 <?php
 /**
- * The template for displaying search results pages
+ * The main template file
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#search-result
+ * This is the most generic template file in a WordPress theme
+ * and one of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query.
+ * E.g., it puts together the home page when no home.php file exists.
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
  * @package WordPress
+ * @subpackage Twenty_Twenty
+ * @since 1.0.0
  */
 
 get_header();
-
-$count = $wp_query->found_posts;
 ?>
 
-	<main role="main" class="main">
-		<section class="search">
-            <div class="container">
-                <div class="search__wrap">
-	                <?php if ( have_posts() ): ?>
-                        <h1 class="ken-block-title">
-			                <?php
-			                printf(
-				                __(
-					                "%s Search Results",
-					                "custom-theme"
-				                ),
-				                $count
-			                );
-			                ?>
-                        </h1>
-
-                        <div class="search__content">
-			                <?php while ( have_posts() ) : the_post(); ?>
-
-				                <?php get_template_part( 'content', 'search' ); ?>
-
-			                <?php endwhile; ?>
-                        </div>
-
-                        <div class="search__pagination">
-			                <?php custom_theme_posts_navigation(); ?>
-                        </div>
-	                <?php else: ?>
-                        <h1 class="ken-block-title">
-			                <?php _e( "No Results", "custom-theme" ); ?>
-                        </h1>
-
-                        <div class="search__content">
-                            <p>
-				                <?php
-				                _e(
-					                "Sorry. We can’t find what you are looking for. Please <a href='/contact/'>Contact Us</a> so we can help you further.",
-					                "custom-theme"
-				                );
-				                ?>
-                            </p>
-                        </div>
-	                <?php endif; ?>
-                </div>
-            </div>
-		</section>
-	</main>
-
+    <main id="site-content" role="main">
+    </main><!-- #site-content -->
 <?php
 get_footer();

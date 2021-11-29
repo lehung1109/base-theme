@@ -1,0 +1,124 @@
+@import "../colors";
+
+%invisible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: (1px);
+  margin: (-1px);
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: (1px);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  @extend %invisible;
+
+  + label {
+    font-weight: 400;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    padding: 2px 0 2px 23px;
+    font-size: 14px;
+    letter-spacing: 0;
+    color: $black;
+
+    &:focus,
+    &:hover,
+    &:active {
+      border-color: $black;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      border: 1px solid $black;
+      margin-top: -6px;
+      border-radius: 3px;
+    }
+
+    &::after {
+      content: "";
+      opacity: 0;
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      transition: opacity 0.3s ease;
+      left: 0;
+    }
+
+    &.reverse::before {
+      @media only screen and (max-width: 767px) {
+        left: inherit;
+        right: 0;
+      }
+    }
+
+    &.reverse::after {
+      @media only screen and (max-width: 767px) {
+        left: inherit;
+        right: 0;
+      }
+    }
+  }
+
+  &:checked {
+    & + label {
+      &::before {
+        border-color: $primary-color;
+      }
+    }
+  }
+}
+
+// Checkbox and radio button.
+input[type="radio"] {
+  + label {
+    &::before {
+      border-radius: 50%;
+      margin-top: -6px;
+    }
+
+    &::after {
+      left: 1px;
+      top: 50%;
+    }
+  }
+
+  &:checked {
+    & + label {
+      &::after {
+        width: 10px;
+        height: 10px;
+        opacity: 1;
+        background: $black;
+        border-radius: 100%;
+      }
+    }
+  }
+}
+
+input[type="checkbox"] {
+  &:checked {
+    & + label {
+      &::before {
+        border-color: $black;
+      }
+
+      &::after {
+        opacity: 1;
+        //@extend %icons;
+        //@extend .icon-check:before;
+        color: $black;
+        font-size: 18px;
+      }
+    }
+  }
+}

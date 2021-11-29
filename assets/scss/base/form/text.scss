@@ -1,0 +1,13 @@
+@import "../colors";
+@import "../extend";
+
+// Input style
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="email"],
+input[type="password"],
+input[type="hidden"] {
+  @extend %form-text;
+}

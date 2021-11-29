@@ -2,7 +2,7 @@
 %icons {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-family: 'base';
+  font-family: envytech, serif;
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
@@ -11,40 +11,49 @@
   text-transform: none;
 }
 
-[class^='icon-'],
-[class*=' icon-'] {
-  &:before {
+[class^="icon-"],
+[class*=" icon-"] {
+  &::before {
     @extend %icons;
   }
 }
 
-.icon-target:before {
+.icon-target::before {
   content: "\e905";
 }
-.icon-search:before {
+
+.icon-search::before {
   content: "\e901";
 }
-.icon-search-plus:before {
+
+.icon-search-plus::before {
   content: "\e907";
 }
-.icon-arrow-circle-right:before {
+
+.icon-arrow-circle-right::before {
   content: "\e906";
 }
-.icon-caret-right:before {
+
+.icon-caret-right::before {
   content: "\e904";
 }
-.icon-circle:before {
+
+.icon-circle::before {
   content: "\e903";
 }
-.icon-bars:before {
+
+.icon-bars::before {
   content: "\e902";
 }
-.icon-navicon:before {
+
+.icon-navicon::before {
   content: "\e902";
 }
-.icon-reorder:before {
+
+.icon-reorder::before {
   content: "\e902";
 }
-.icon-arrow-up:before {
+
+.icon-arrow-up::before {
   content: "\e900";
 }

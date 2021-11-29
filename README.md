@@ -1,15 +1,23 @@
-#SSV Styleguide Template
+<p align="center">
+  <a href="https://gulpjs.com">
+    <img height="257" width="114" src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png">
+  </a>
+  <p align="center">The streaming build system</p>
+</p>
 
-##Getting started
+[![NPM version][npm-image]][npm-url] [![NODE][node-image]][node-url] [![GULP][gulp-image]][gulp-url]
 
-###Prerequisites:
-The SSV Styleguide has a few dependencies that you will need to install to use it. Don't worry, we're got all the link you need right here:
+# Sentius Template
 
-* [Composer](https://getcomposer.org/) – Dependency Manager for PHP,
+## Getting started
+
+### Prerequisites:
+The sentius Styleguide has a few dependencies that you will need to install to use it. Don't worry, we're got all the link you need right here:
+
 * [Node.js](https://nodejs.org/en/) – The backbone of the framework. Node Package Manager takes care of installing all the dev dependencies,
 * [Gulp](http://gulpjs.com/) – Task manager and automation. Gulp is responsible for running all the small tasks like compiling SCSS and Twig templates, starting a web server and automatically reloading browsers.
 
-###Starting a new project
+### Starting a new project
 So you got the prerequisites installed, and you're ready to get started? Great! Just follow the simple steps below:
 
 
@@ -33,10 +41,11 @@ So you got the prerequisites installed, and you're ready to get started? Great! 
     gulp
     ```
 
-5. For just compile style, run below command in `.npm` folder.
+[npm-url]: https://www.npmjs.com/package/gulp
+[npm-image]: https://img.shields.io/npm/v/gulp.svg
 
-    ```
-    gulp sass-watch
-    ```
-6. View styleguide page (theme is name of your theme)
-    ../theme/assets/patter-lab/public
+[node-url]: https://github.com/nodejs/node
+[node-image]: https://img.shields.io/badge/nodejs-v17.1.0-brightgreen
+
+[gulp-url]: https://github.com/gulpjs/gulp
+[gulp-image]: https://img.shields.io/badge/gulp-v4.0.2-brightgreen

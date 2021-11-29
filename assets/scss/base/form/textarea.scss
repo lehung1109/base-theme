@@ -1,0 +1,11 @@
+@import "../colors";
+@import "../extend";
+
+.form-textarea,
+textarea {
+  @extend %form-text;
+
+  height: auto;
+  max-height: 120px;
+  line-height: 1;
+}
