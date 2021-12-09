@@ -92,6 +92,14 @@ function custom_theme_buffer_process($buffer) {
         )
     ) return $buffer;
 
+    return custom_theme_rebuild_buffer($buffer);
+}
+
+/**
+ * @param $buffer
+ * @return array|mixed|string|string[]
+ */
+function custom_theme_rebuild_buffer($buffer) {
     // build array for replace html
     $script_body = [];
     $script_head = [];
@@ -111,7 +119,7 @@ function custom_theme_buffer_process($buffer) {
 
     custom_theme_divide_scripts($matches, $script_body, $script_head);
 
-    $buffer = str_replace(
+    return str_replace(
         array(
             '<head>',
             '</body>',
@@ -122,8 +130,6 @@ function custom_theme_buffer_process($buffer) {
         ),
         $buffer
     );
-
-    return $buffer;
 }
 
 /**
@@ -300,4 +306,17 @@ function custom_theme_divide_scripts($matches, &$script_body, &$script_head) {
 //    if ($_SERVER['HTTP_HOST'] === 'demo.com' || $_SERVER['HTTP_HOST'] === 'www.demo.com') {
 //        $script_body[] = '<script defer async type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id={place_id_here}"></script>';
 //    }
+}
+
+/**
+ * @param $buffer
+ * @return array|mixed|string|string[]
+ */
+function custom_theme_wp_rocket_buffer_process($buffer) {
+    if (
+        empty($_POST) ||
+        empty( $_POST['_wpcf7'] )
+    ) return $buffer;
+
+    return custom_theme_rebuild_buffer($buffer);
 }
