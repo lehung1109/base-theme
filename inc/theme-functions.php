@@ -158,14 +158,15 @@ function custom_theme_divide_scripts($matches, &$script_body, &$script_head, $in
     $classes = [
         'lazy-image',
         'is-max-height',
-        'btn number',
-        'select',
-        'textarea',
-        'checkbox',
-        'submit',
+        'btn',
+        'form-type-number',
+        'form-type-select',
+        'form-type-textarea',
+        'form-type-checkbox',
+        'form-type-submit',
         'form-item',
         'search-form',
-        'contact-form',
+        'wpcf7-form',
         'icon',
         'table',
         'woocommerce-pagination',
@@ -176,6 +177,7 @@ function custom_theme_divide_scripts($matches, &$script_body, &$script_head, $in
         'box-slider',
         'box-text',
         'archive',
+        '404',
         'post-template-default',
         'product-template-default',
         'has-slide',
@@ -258,6 +260,9 @@ function custom_theme_divide_scripts($matches, &$script_body, &$script_head, $in
               let wpcf7 = ' . json_encode($wpcf7) . ';
           </script>';
           $script_body[] = '<script defer type="text/javascript" src="' . wpcf7_plugin_url( 'includes/js/index.js' ) . '"></script>';
+
+          // support recaptcha
+          custom_theme_add_recaptcha($script_body);
         }
     }
 
@@ -311,4 +316,27 @@ function custom_theme_wp_rocket_buffer_process($buffer) {
     ) return $buffer;
 
     return custom_theme_rebuild_buffer($buffer);
+}
+
+/**
+ * add recaptcha support
+ */
+function custom_theme_add_recaptcha(&$script_body) {
+    if ( ! class_exists('WPCF7_RECAPTCHA') ) return;
+
+    $service = WPCF7_RECAPTCHA::get_instance();
+
+    if ( ! $service->is_active() ) return;
+
+    $script_body[] = '<script defer type="text/javascript" src="https://www.recaptcha.net/recaptcha/api.js?render=' . $service->get_sitekey() . '"></script>';
+
+    $wpcf7_recaptcha = array(
+        'sitekey' => $service->get_sitekey(),
+        'actions' => array(
+            'homepage' => 'homepage',
+            'contactform' => 'contactform',
+        )
+    );
+    $script_body[] = '<script type="text/javascript">let wpcf7_recaptcha = ' . json_encode($wpcf7_recaptcha) . ';</script>';
+    $script_body[] = '<script defer type="text/javascript" src="' . wpcf7_plugin_url( 'modules/recaptcha/index.js' ) . '"></script>';
 }
