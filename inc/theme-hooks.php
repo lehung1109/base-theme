@@ -20,3 +20,4 @@
     remove_action('wp_enqueue_scripts', 'wpcf7_recaptcha_enqueue_scripts', 20);
     add_filter('litespeed_buffer_before', 'custom_theme_buffer_process');
     add_action('wp_head', 'custom_theme_add_scripts_when_ls_inactive');
+    add_filter('rocket_buffer', 'custom_theme_wp_rocket_buffer_process', -1000);
