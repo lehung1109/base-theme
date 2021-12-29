@@ -23,3 +23,4 @@
     }, 0 );
     add_filter('litespeed_buffer_before', 'custom_theme_send_headers_force');
     add_filter('rocket_buffer', 'custom_theme_send_headers_force', -1000);
+    add_filter('wp_cache_ob_callback_filter', 'custom_theme_send_headers_force');
