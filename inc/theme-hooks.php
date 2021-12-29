@@ -18,4 +18,6 @@
     add_filter('wpcf7_load_js', function () { return false; });
     add_filter('wpcf7_load_css', function () { return false; });
     remove_action('wp_enqueue_scripts', 'wpcf7_recaptcha_enqueue_scripts', 20);
-    add_action( 'after_setup_theme', function () { ob_start('custom_theme_send_headers_force'); }, -1000 );
+    add_action( 'after_setup_theme', function () { if ( ! defined('WP_CACHE') ) ob_start('custom_theme_send_headers_force'); }, 0 );
+    add_filter('litespeed_buffer_before', 'custom_theme_send_headers_force');
+    add_filter('rocket_buffer', 'custom_theme_send_headers_force', -1000);
