@@ -84,14 +84,6 @@ function custom_theme_dequeue_wp_embed() {
  * @return mixed
  */
 function custom_theme_buffer_process($buffer) {
-    if (
-        ! defined( 'LITESPEED_IS_HTML' ) &&
-        (
-            empty($_POST) ||
-            empty( $_POST['_wpcf7'] )
-        )
-    ) return $buffer;
-
     return custom_theme_rebuild_buffer($buffer);
 }
 
@@ -133,61 +125,11 @@ function custom_theme_rebuild_buffer($buffer) {
 }
 
 /**
- * add javascript for ls inactive
- */
-function custom_theme_add_scripts_when_ls_inactive() {
-    if (!function_exists('is_plugin_active')) {
-        include_once(ABSPATH . 'wp-admin/includes/plugin.php');
-    }
-  
-    if (is_plugin_active('litespeed-cache/litespeed-cache.php')) return;
-
-    $script_body = [];
-    $script_head = [];
-
-    custom_theme_divide_scripts([], $script_body, $script_head, true);
-
-    echo implode("", $script_head);
-    echo implode("", $script_body);
-}
-
-/**
  * divide scripts for style and script
  */
-function custom_theme_divide_scripts($matches, &$script_body, &$script_head, $include_all = false) {
-    $classes = [
-        'lazy-image',
-        'is-max-height',
-        'btn',
-        'form-type-number',
-        'form-type-select',
-        'form-type-textarea',
-        'form-type-checkbox',
-        'form-type-submit',
-        'form-item',
-        'search-form',
-        'wpcf7-form',
-        'icon',
-        'table',
-        'woocommerce-pagination',
-        'layout',
-        'sidebar',
-        'banner',
-        'box-provider',
-        'box-slider',
-        'box-text',
-        'archive',
-        '404',
-        'post-template-default',
-        'product-template-default',
-        'has-slide',
-        'wpcf7-form',
-    ];
-
-    if ( $include_all ) $matches = implode(' ', $classes);
-
+function custom_theme_divide_scripts($matches, &$script_body, &$script_head) {
     $matches = explode(' ', $matches);
-    $matches = array_intersect($classes, $matches);
+    $matches = array_unique($matches);
     $matches = array_flip($matches);
 
     // add core style
@@ -306,19 +248,6 @@ function custom_theme_divide_scripts($matches, &$script_body, &$script_head, $in
 }
 
 /**
- * @param $buffer
- * @return array|mixed|string|string[]
- */
-function custom_theme_wp_rocket_buffer_process($buffer) {
-    if (
-        empty($_POST) ||
-        empty( $_POST['_wpcf7'] )
-    ) return $buffer;
-
-    return custom_theme_rebuild_buffer($buffer);
-}
-
-/**
  * add recaptcha support
  */
 function custom_theme_add_recaptcha(&$script_body) {
@@ -339,4 +268,43 @@ function custom_theme_add_recaptcha(&$script_body) {
     );
     $script_body[] = '<script type="text/javascript">let wpcf7_recaptcha = ' . json_encode($wpcf7_recaptcha) . ';</script>';
     $script_body[] = '<script defer type="text/javascript" src="' . wpcf7_plugin_url( 'modules/recaptcha/index.js' ) . '"></script>';
+}
+
+/**
+ * For compatibility with those plugins have 'Bad' logic that forced all buffer output even it is NOT their buffer :(
+ *
+ * Usually this is called after send_headers() if following original WP process
+ *
+ * @since 1.1.5
+ * @access public
+ * @param  string $buffer
+ * @return string
+ */
+function custom_theme_send_headers_force($buffer) {
+    if (defined('CUSTOM_THEME_DID_OPT') ) return $buffer;
+
+    define('CUSTOM_THEME_DID_OPT', TRUE);
+
+    $is_html = custom_theme_check_html($buffer);
+
+    if ( ! $is_html ) return $buffer;
+
+    return custom_theme_buffer_process($buffer);
+}
+
+/**
+ * @param $buffer
+ * @return bool
+ */
+function custom_theme_check_html($buffer) {
+    // double check to make sure it is a html file
+    if ( strlen( $buffer ) > 300 ) {
+        $buffer = substr( $buffer, 0, 300 );
+    }
+    if ( strstr( $buffer, '<!--' ) !== false ) {
+        $buffer = preg_replace( '/<!--.*?-->/s', '', $buffer );
+    }
+    $buffer = trim( $buffer );
+
+    return stripos( $buffer, '<html' ) === 0 || stripos( $buffer, '<!DOCTYPE' ) === 0;
 }
