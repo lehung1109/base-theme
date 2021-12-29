@@ -1,0 +1,10 @@
+<div id="icomoon" class="icomoon container">
+  <ul>
+    {% for item in icons %}
+      <li>
+        <i class="icomoon__icon icon-{{ item.properties.name }}"></i>
+        <span class="icomoon__name">icon-{{ item.properties.name }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
