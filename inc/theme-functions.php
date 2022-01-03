@@ -281,13 +281,12 @@ function custom_theme_add_recaptcha(&$script_body) {
  * @return string
  */
 function custom_theme_send_headers_force($buffer) {
-    if (defined('CUSTOM_THEME_DID_OPT') ) return $buffer;
-
-    define('CUSTOM_THEME_DID_OPT', TRUE);
-
     $is_html = custom_theme_check_html($buffer);
 
     if ( ! $is_html ) return $buffer;
+    if (defined('CUSTOM_THEME_DID_OPT') ) return $buffer;
+
+    define('CUSTOM_THEME_DID_OPT', TRUE);
 
     return custom_theme_buffer_process($buffer);
 }
