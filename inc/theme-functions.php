@@ -97,7 +97,9 @@ function custom_theme_rebuild_buffer($buffer) {
     $script_head = [];
 
     // check style and js
-    $pattern = '#class="([^"]+)#i';
+    $pattern = <<<END
+#class\s*=\s*["']([^"']+)#i
+END;
     preg_match_all(
         $pattern,
         $buffer,
